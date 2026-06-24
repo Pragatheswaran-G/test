@@ -1,0 +1,117 @@
+nav{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 15px 0;
+    background: white;
+}
+.search{
+    display: flex;
+    border: 1px solid black;
+    padding: 9px;
+    border-radius: 30px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+input[type="search"]{
+    outline: none;
+    border: none;
+    width: 400px;
+}
+.search button{
+    padding: 7px;
+    border-radius: 100%;
+    background-color: blue;
+    color: white;
+    border: none;
+}
+.button_card{
+    display: flex;
+    justify-content: space-between;
+}
+.button_card button{
+    background-color: rgb(34, 150, 34);
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+.image_res img{
+    width: 220px;
+    height: 220px;
+
+}
+.card{
+    width: 220px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+}
+#card_container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    margin: 40px;
+}
+.purchase{
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+.purchase button{
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: rgb(90, 155, 90);
+    border: none;
+    border-radius: 10px;
+}
+.purchase h3{
+    margin: 10px;
+}
+.content p{
+    text-align: justify;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.content_head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#buy{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 2px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: brown;
+    color: white;
+}
+#buy_btn{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px;
+    margin: 2px;
+    background-color: goldenrod;
+    border-radius: 10px;
+    color: white;
+    font-size: larger;
+}

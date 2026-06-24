@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./shopping.css">
+</head>
+
+<body>
+    <div id="card_container"></div>
+    <div id="btn">
+        <button id="buy_btn" onclick="redirectToBuy()">BUY</button>
+    </div>
+    <script src="./shopping.js"></script>
+    <script>
+        localStorage.setItem("type","cart");
+        getcard();
+        function redirectToBuy() {
+            // window.location.href="buy.html";
+            window.location.replace("buy.html");
+        }
+    </script>
+</body>
+
+</html>

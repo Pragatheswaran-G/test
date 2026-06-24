@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.update_profile{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    width: 350px;
+}
+label{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+input{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.button{
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(110, 110, 233);
+    color: white;
+}
+button:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}

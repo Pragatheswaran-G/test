@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./todo.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <h2>My Todo List</h2>
+
+        <div class="input-box">
+            <input type="text" id="task" placeholder="Enter task">
+            <button onclick="addTodo()">Add</button>
+        </div>
+
+        <div id="todoList"></div>
+
+    </div>
+    <script>
+        async function addTodo() {
+
+            let username = localStorage.getItem("username");
+            let task = document.getElementById("task").value.trim();
+
+            if (task === "") {
+                return;
+            }
+
+            const response = await fetch(
+                `http://localhost:8080/api/todo/add?data=${task}&username=${username}`,
+                {
+                    method: "POST",
+                }
+            );
+            const data = await response.text();
+            console.log(data);
+            document.getElementById("task").value = "";
+            loadTodos();
+        }
+        async function loadTodos() {
+            let username = localStorage.getItem("username");
+            const response = await fetch(
+                `http://localhost:8080/api/todo/show?username=${username}`
+            );
+            const todos = await response.json();
+            let html = "";
+            todos.forEach(todo => {
+                html += `
+                <div class="todo-item">
+
+                    <div class="todo-left">
+
+                        <input type="checkbox"
+                        ${todo.status === "Completed" ? "checked" : ""}
+                        onchange="completeTodo(${todo.id})">
+
+                        <span class="${todo.status === "Completed" ? "completed" : ""}">
+                            ${todo.task}
+                        </span>
+
+                    </div>
+
+                    <button class="delete-btn"
+                        onclick="deleteTodo(${todo.id})">
+                        Delete
+                    </button>
+
+                </div>
+                `;
+
+                console.log(todo.id);
+            });
+            document.getElementById("todoList").innerHTML = html;
+        }
+        loadTodos();
+        async function completeTodo(id) {
+            const response = await fetch(
+                `http://localhost:8080/api/todo/update/${id}`,
+                {
+                    method: "PUT"
+                }
+            );
+            const data = await response.text();
+            console.log(data);
+            loadTodos();
+        }
+        async function deleteTodo(id) {
+            const response = await fetch(
+                `http://localhost:8080/api/todo/delete/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+            const data = await response.text();
+            if (data === "Todo Deleted Successfully")
+                loadTodos();
+        }
+        document.getElementById("task")
+            .addEventListener("keydown", function (event) {
+
+                if (event.key === "Enter") {
+                    addTodo();
+                }
+
+            });
+    </script>
+</body>
+
+</html>

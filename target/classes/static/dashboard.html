@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-left">
+            <button>Dashboard</button>
+            <a href="./todo.html"><button>Todo</button></a>
+            <a href="./shopping.html"><button>Shopping</button></a>
+            <a href="./profile.html"><button>Profile</button></a>
+        </div>
+        <div class="nav-right">
+            <button onclick="logout()">Logout</button>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="header">
+            <h1 id="welcome"></h1>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <h2>Total Tasks</h2>
+                <p id="totalTask">0</p>
+            </div>
+            <div class="card">
+                <h2>Completed</h2>
+                <p id="completedTask">0</p>
+            </div>
+            <div class="card">
+                <h2>Pending</h2>
+                <p id="pendingTask">0</p>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        var username = localStorage.getItem("username");
+
+        if (username == null) {
+            // window.location.href = "index.html";
+            window.location.replace("index.html");
+        }
+
+        document.getElementById("welcome").innerText =
+            "Welcome " + username;
+
+        async function loadDashboard() {
+            // let username = localStorage.getItem("username");
+            const response = await fetch(
+                `http://localhost:8080/api/dashboard?username=${username}`,
+                {
+                    method: "POST"
+                }
+            );
+            const data = await response.json();
+            document.getElementById("totalTask").innerText = data.total;
+            document.getElementById("completedTask").innerText = data.completed;
+            document.getElementById("pendingTask").innerText = data.pending;
+        }
+        loadDashboard();
+        function logout() {
+
+            localStorage.removeItem("username");
+            localStorage.removeItem("id");
+            localStorage.removeItem("email");
+            localStorage.removeItem("role");
+            // window.location.href = "index.html";
+            window.location.replace("index.html");
+        }
+
+    </script>
+
+</body>
+
+</html>

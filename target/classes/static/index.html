@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <div style="display: flex; justify-content: center; padding: 30px;">
+            <h1 style="color: goldenrod;" id="commonForLoginAndRegisterGreed"></h1>
+        </div>
+        <div class="container">
+            <div class="container_box" style="display: flex; justify-content: center; align-items: center;">
+                <h2 style="color: white; font-family: 'Poppins', sans-serif;" id="greed">Sign in to access your account.</h2>
+            </div>
+            <div class="box">
+                <div class="buttons">
+                    <button id="loginBtn" onclick="showLogin()">Login</button>
+                    <button id="registerBtn" class="active" onclick="showRegister()">Register</button>
+                </div>
+                <div id="loginForm">
+                    <div id="loginMessage"></div>
+                    <h2>Login</h2>
+                    <input type="text" id="loginName" placeholder="Username or Email">
+
+                    <input type="password" id="loginPass" placeholder="Password">
+
+                    <button onclick="loginForm()">Login</button>
+                </div>
+                <div id="registerForm" style="display:none;">
+                    <div id="registerMessage"></div>
+                    <h2>Register</h2>
+                    <input type="text" id="regName" placeholder="Username">
+                    <div id="nameWarning"></div>
+                    <input type="email" id="regEmail" placeholder="Email">
+                    <div id="emailWarning"></div>
+                    <input type="password" id="regPass" placeholder="Password">
+                    <div id="passWarning"></div>
+                    <input type="password" id="regRepass" placeholder="Confirm Password">
+                    <div id="repassWarning"></div>
+                    <button onclick="registerForm()">Register</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="./script.js"></script>
+
+</body>
+
+</html>

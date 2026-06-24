@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping</title>
+    <link rel="stylesheet" href="./shopping.css">
+</head>
+
+<body>
+    <nav>
+        <div class="search">
+            <input type="search" id="search" placeholder="searching..." onkeyup="searchProduct()">
+            <button>Q</button>
+        </div>
+    </nav>
+    <div class="button_card">
+        <a href="./shoppingcart.html"><button id="cardbutton">Cart</button></a>
+        <button id="uploadbutton" onclick="openUploadPage()">Upload</button>
+    </div>
+    <div id="card_container"></div>
+    <script src="./shopping.js"></script>
+    <script>
+        getProduct();
+        function displayProducts(data) {
+            let ans = document.getElementById("card_container");
+            let app = "";
+            data.forEach(e => {
+                app += `
+                <div class="card">
+                    <div class="image_res">
+                        <img src="http://localhost:8080/images/${e.imageUrl}" alt=""> 
+                    </div> 
+                    <div class="content"> 
+                        <div class="content_head"> 
+                            <h2>${e.name}</h2> 
+                            <h3>NTQ : ${e.quantity}</h3> 
+                        </div> 
+                        <p>${e.details}</p> 
+                        <div class="purchase"> 
+                            <h3>₹${e.price}</h3> 
+                            <button id="card" onclick="addCard(${e.id})">Add Cart</button> 
+                        </div> 
+                        <button id="buy" onclick="buyButton(${e.price},${e.id},${e.quantity})">Buy</button> 
+                    </div>
+                </div>`;
+            });
+
+            ans.innerHTML = app;
+        }
+        function searchProduct() {
+
+            let text = document.getElementById("search").value.trim().toLowerCase();
+            if (text === "") {
+                displayProducts(products); 
+                return;
+            }
+
+            const result = products.filter(product =>
+                product.name.toLowerCase().includes(text)
+            );
+
+            displayProducts(result);
+        }
+    </script>
+</body>
+
+</html>

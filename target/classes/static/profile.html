@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="./profile.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id="updategreed" style="color: rgb(43, 56, 30); font-size: larger ;"></div>
+        <div class="update_profile">
+            <label>Name :<input type="text" id="name" disabled class="inp"></label>
+            <label>Email :
+                <input type="email" id="email" disabled class="inp"></label>
+            <label>Password :
+                <input type="password" id="pass" disabled class="inp"></label>
+            <label>Re Enter Password :
+                <input type="password" id="repass" disabled class="inp"></label>
+            <div class="button">
+                <button onclick="enableEdit()" id="edit">Edit</button>
+                <button type="submit" onclick="userdetails()" disabled id="update">Update</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("name").value = localStorage.getItem("username");
+        document.getElementById("email").value = localStorage.getItem("email");
+        async function userdetails() {
+            let id = localStorage.getItem("id").trim();
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let pass = document.getElementById("pass").value.trim();
+            let repass = document.getElementById("repass").value.trim();
+            let greed = document.getElementById("updategreed");
+            const usernameRegex = /^[A-Za-z0-9]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!usernameRegex.test(name)) {
+                greed.innerText = "Invalid username";
+                return;
+            }
+
+            if (!emailRegex.test(email)) {
+                greed.innerText = "Invalid email";
+                return;
+            }
+
+            if (pass !== repass || pass === "") {
+                greed.innerText = "Passwords do not match";
+                return;
+            }
+            const response = await fetch(`http://localhost:8080/api/profile?id=${id}&name=${name}&email=${email}&pass=${pass}`,
+                {
+                    method: "PUT"
+                }
+            )
+            const data = await response.text();
+            greed.innerText = data;
+            if(data==="Update Successfully"){
+                let pass = document.getElementById("pass").value="";
+                let repass = document.getElementById("repass").value="";
+                document.querySelectorAll(".inp").forEach(input => {
+                    input.disabled = true;
+                });
+                document.getElementById("edit").disabled = false;
+                document.getElementById("update").disabled = true;
+                setTimeout(() => {
+                    greed.innerText="";
+                }, 1000);
+            }
+        }
+        function enableEdit() {
+            document.querySelectorAll(".inp").forEach(input => {
+                input.disabled = false;
+            });
+            document.getElementById("edit").disabled = true;
+            document.getElementById("update").disabled = false;
+        }
+    </script>
+</body>
+
+</html>

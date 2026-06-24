@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./shopping.css">
+    <style>
+        .style_payment {
+            width: 350px;
+            margin: 100px auto;
+            padding: 30px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .style_payment input {
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .style_payment button {
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+
+            background: #28a745;
+            color: white;
+
+            border: none;
+            border-radius: 10px;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .style_payment button:hover {
+            background: #218838;
+            transform: scale(1.03);
+        }
+
+        .style_payment button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="style_payment">
+        <input type="text" id="fixedAmount">
+        <button onclick="paid_amount()">Pay Amount</button>
+    </div>
+    <script>
+        document.getElementById("fixedAmount").value = localStorage.getItem("price");
+        async function paid_amount() {
+            console.log("hii");
+
+            if (localStorage.getItem("type") === "cart") {
+                await buy_Button();
+            } else {
+                await paid(localStorage.getItem("productId"), localStorage.getItem("productquantity"));
+            }
+
+            localStorage.removeItem("type");
+            alert("Payment Successfully");
+            window.location.replace("shopping.html");
+        }
+    </script>
+    <script src="./shopping.js">
+
+    </script>
+</body>
+
+</html>
